@@ -1,0 +1,115 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+
+#message-area {
+    margin: 15px;
+    font-size: 1.2em;
+    min-height: 1.5em; /* Prevent layout shifts */
+    font-weight: bold;
+    color: #0056b3;
+}
+
+/* Added to hide/show game area */
+#game-area {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 60px); /* 7 columns */
+    grid-template-rows: repeat(6, 60px);    /* 6 rows */
+    gap: 5px;
+    background-color: #007bff; /* Blue board background */
+    border: 5px solid #0056b3;
+    padding: 5px;
+    border-radius: 10px;
+    width: fit-content; /* Size to content */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.cell {
+    background-color: #e9ecef; /* Light grey empty slots */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Only add hover effect if game is active and it's player's turn */
+.cell.player-turn-hover:hover {
+     background-color: #d0d0d0; /* Slightly darker hover */
+}
+
+.piece {
+    width: 50px;  /* Slightly smaller than cell */
+    height: 50px;
+    border-radius: 50%;
+    background-color: transparent; /* Default empty */
+}
+
+/* --- RENAMED and REVERSED Colors --- */
+/* Player 1 pieces are YELLOW */
+.player1-color {
+    background-color: #ffc107; /* Yellow */
+    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+}
+
+/* Player 2 pieces are RED */
+.player2-color {
+    background-color: #dc3545; /* Red */
+     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+}
+
+
+/* More generic names */
+.playerAI { /* AI - Yellow */
+    background-color: #ffc107; /* Yellow */
+    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+}
+
+.playerHuman { /* Human - Red */
+    background-color: #dc3545; /* Red */
+     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+}
+
+button#new-game-btn { /* Target only the new game button */
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    margin-top: 10px; /* Add some space */
+}
+
+button#new-game-btn:hover {
+    background-color: #218838;
+}
+
+/* Flash message styling (copied from choose_player.html for consistency if needed elsewhere) */
+.flash-message {
+     padding: 10px;
+     margin: 10px auto; /* Center flash messages */
+     border-radius: 4px;
+     max-width: 400px; /* Limit width */
+     text-align: center;
+ }
+ .flash-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+ .flash-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }

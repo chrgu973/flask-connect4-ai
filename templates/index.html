@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4 - AI Challenge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Connect 4</h1>
+
+    <!-- Message Area always visible -->
+    <div id="message-area">
+        {{ message | safe }} <!-- Display initial/current message -->
+    </div>
+
+    <!-- Game Board Area (Only shown if game is active/setup) -->
+    <div id="game-area" {% if not game_active %}style="display: none;"{% endif %}>
+        <div id="board">
+            {% for r in range(rows-1, -1, -1) %} <!-- Iterate rows top-down for display -->
+                {% for c in range(cols) %}
+                    <div class="cell" data-col="{{ c }}">
+                         <!-- JS will add piece classes dynamically -->
+                        <div class="piece"></div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <button id="new-game-btn">New Game / Choose Player</button>
+    </div>
+
+    <!-- Pass initial game state to JavaScript -->
+    <script>
+        // Make sure these are defined even if game not active initially
+        const initialBoard = {{ board_json | safe if board_json else 'null' }};
+        let gameActive = {{ game_active | tojson }};
+        let isPlayerTurn = {{ is_player_turn | tojson }};
+        const initialNeedsAIFirstMove = {{ needs_ai_first_move | tojson }};
+        // IMPORTANT: Pass the human's assigned player ID
+        const localHumanPlayerId = {{ human_player_id | tojson if human_player_id is defined else 'null' }};
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
