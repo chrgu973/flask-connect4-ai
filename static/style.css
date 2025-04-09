@@ -62,7 +62,6 @@ h1 {
     background-color: transparent; /* Default empty */
 }
 
-/* --- RENAMED and REVERSED Colors --- */
 /* Player 1 pieces are YELLOW */
 .player1-color {
     background-color: #ffc107; /* Yellow */
@@ -103,7 +102,7 @@ button#new-game-btn:hover {
     background-color: #218838;
 }
 
-/* Flash message styling (copied from choose_player.html for consistency if needed elsewhere) */
+
 .flash-message {
      padding: 10px;
      margin: 10px auto; /* Center flash messages */

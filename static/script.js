@@ -11,15 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let localGameActive = typeof gameActive !== 'undefined' ? gameActive : false;
     let localIsPlayerTurn = typeof isPlayerTurn !== 'undefined' ? isPlayerTurn : false;
     const localNeedsAIFirstMove = typeof initialNeedsAIFirstMove !== 'undefined' ? initialNeedsAIFirstMove : false;
-    // Get Human Player ID from the template - needed for turn logic/click listener
     const humanPlayerId = typeof localHumanPlayerId !== 'undefined' ? localHumanPlayerId : null;
 
     let currentBoard = localInitialBoard;
 
     // --- Functions ---
     function updateBoard(boardData) {
-        currentBoard = boardData; // Update local copy
-        if (!currentBoard) return; // Need board
+        currentBoard = boardData; 
+        if (!currentBoard) return;
 
         let cellIndex = 0;
         for (let r = boardData.length - 1; r >= 0; r--) {
@@ -28,14 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pieceDiv = cells[cellIndex].querySelector('.piece');
                 if (!pieceDiv) continue;
 
-                // Remove old classes (using the NEW CSS names)
                 pieceDiv.classList.remove('player1-color', 'player2-color');
 
-                // Apply new class based ONLY on piece value (1 or 2)
                 const pieceValue = boardData[r][c];
-                if (pieceValue === 1) { // Player 1 piece (ALWAYS Yellow)
+                if (pieceValue === 1) { 
                     pieceDiv.classList.add('player1-color');
-                } else if (pieceValue === 2) { // Player 2 piece (ALWAYS Red)
+                } else if (pieceValue === 2) { 
                     pieceDiv.classList.add('player2-color');
                 }
                 cellIndex++;
@@ -70,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
          });
      }
 
-    // --- Request AI move --- (No changes needed inside)
+    // --- Request AI move --- 
     async function requestAIMove() {
         console.log("Requesting AI move from /ai_move");
         try {
@@ -100,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     // --- Request AI's FIRST move --- (No changes needed inside)
+     // --- Request AI's FIRST move ---
      async function requestAIFirstMove() {
         console.log("Requesting AI first move from /ai_first_move");
         updateMessage("Starting Game... AI is thinking...");
@@ -188,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTurnIndicator();
             }
         });
-    } // end if(boardElement)
+    } 
 
     if (newGameBtn) {
         newGameBtn.addEventListener('click', () => {

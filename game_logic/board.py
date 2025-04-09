@@ -1,28 +1,27 @@
-#Game Environment Utilities
 import numpy as np
 import copy
 import time
 
 # --- Constants ---
-ROWS = 6
-COLS = 7
-EMPTY = 0
-PLAYER1_PIECE = 1
-PLAYER2_PIECE = 2
+ROWS = 6  # Standard Connect 4 has 6 rows
+COLS = 7  # Standard Connect 4 has 7 columns
+EMPTY = 0  # Empty cell value
+PLAYER1_PIECE = 1  # Player 1 piece (Yellow)
+PLAYER2_PIECE = 2  # Player 2 piece (Red)
 
 
 # Positional Heuristic Values (Higher value = better center/strategic position)
-# Defined visually top-down for clarity
+# Defined visually top-down for clarity - center positions are more valuable
 POSITIONAL_VALUES_RAW = np.array([
-    [3, 4, 5, 7, 5, 4, 3],
+    [3, 4, 5, 7, 5, 4, 3],  # Top row (least valuable)
     [4, 6, 8, 10, 8, 6, 4],
     [5, 8, 11, 13, 11, 8, 5],
     [5, 8, 11, 13, 11, 8, 5],
     [4, 6, 8, 10, 8, 6, 4],
-    [3, 4, 5, 7, 5, 4, 3]
+    [3, 4, 5, 7, 5, 4, 3]   # Bottom row
 ])
-# Flip vertically because our board array has row 0 at the *bottom*.
-# This makes POSITIONAL_VALUES[row][col] correspond correctly to the game board array.
+
+# Flip the board to match the internal representation (row 0 is bottom)
 POSITIONAL_VALUES = np.flipud(POSITIONAL_VALUES_RAW)
 
 
@@ -38,7 +37,7 @@ def print_board(board):
     piece_map = {
         EMPTY: " ",
         PLAYER1_PIECE: "X", # Player 1
-        PLAYER2_PIECE: "O"  # Player 2 (Using 'O' instead of '0' for clarity)
+        PLAYER2_PIECE: "O"  # Player 2
     }
 
     # Print the board rows from top to bottom (needs flipping)
@@ -59,14 +58,14 @@ def print_board(board):
 
 def is_valid_location(board, col):
     """Checks if a column is valid for dropping a piece."""
-    return 0 <= col < COLS and board[ROWS - 1][col] == EMPTY # Check top row
+    return 0 <= col < COLS and board[ROWS - 1][col] == EMPTY 
 
 def get_next_open_row(board, col):
     """Finds the lowest empty row in a given column."""
     for r in range(ROWS):
         if board[r][col] == EMPTY:
             return r
-    return None # Should not happen if is_valid_location is checked first
+    return None 
 
 def drop_piece(board, row, col, piece):
     """Places a piece on the board at the specified location."""
@@ -76,7 +75,7 @@ def get_valid_locations(board):
     """Returns a list of columns where a piece can be dropped."""
     return [col for col in range(COLS) if is_valid_location(board, col)]
 
-# --- Winning Condition Logic ---
+
 def winning_move(board, piece):
     """Checks if the specified player has won."""
     # Check horizontal locations
